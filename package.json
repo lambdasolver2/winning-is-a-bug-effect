@@ -2,7 +2,7 @@
   "name": "winning-is-a-bug",
   "private": true,
   "type": "module",
-  "description": "Winning Is A Bug \u2014 Effect-TS + Foldkit port with machine-checked law",
+  "description": "Winning Is A Bug — Effect-TS + Foldkit port with machine-checked law",
   "workspaces": [
     "apps/*",
     "packages/*"
@@ -14,14 +14,17 @@
     "lint": "oxlint apps packages",
     "fmt": "oxfmt .",
     "fmt:check": "oxfmt --check .",
-    "dev": "turbo run dev"
+    "dev": "turbo run dev",
+    "prepare": "husky"
   },
   "devDependencies": {
     "oxfmt": "^0.60.0",
     "oxlint": "^1.82.0",
     "turbo": "^2.10.7",
     "typescript": "^5.9.3",
-    "@foldkit/oxlint-plugin": "^0.12.0"
+    "@foldkit/oxlint-plugin": "^0.12.0",
+    "husky": "^9.1.7",
+    "lint-staged": "^17.2.0"
   },
   "packageManager": "bun@1.3.14",
   "overrides": {
@@ -30,5 +33,11 @@
     "@effect/platform-node-shared": "4.0.0-rc.112",
     "@effect/platform-browser": "4.0.0-rc.112",
     "@effect/platform-bun": "4.0.0-rc.112"
+  },
+  "lint-staged": {
+    "*.ts": [
+      "oxlint --fix",
+      "oxfmt --write"
+    ]
   }
 }

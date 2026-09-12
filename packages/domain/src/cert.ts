@@ -18,10 +18,10 @@
  *
  * @since 0.1.0
  */
-import { Effect, Match } from "effect";
+import { Effect, Match, Schema } from "effect";
 import * as Arr from "effect/Array";
-import * as Game from "./Game.js";
-import * as Laws from "./Laws.js";
+import * as Game from "./game.js";
+import * as Laws from "./laws.js";
 
 /**
  * The room interior: the flag's 3x3 corner including its east/south walls.
@@ -193,13 +193,9 @@ export const runFalse = (): boolean => {
 export const winningIsABug = (_moves: ReadonlyArray<Game.Move>): boolean => runFalse();
 
 /** Proof failure for the law. @category Errors @since 0.1.0 */
-export class CertError extends Error {
-  readonly _tag = "CertError" as const;
-  constructor(readonly detail: string) {
-    super(`certificate failed: ${detail}`);
-    this.name = "CertError";
-  }
-}
+export class CertError extends Schema.TaggedError<CertError>()("CertError", {
+  detail: Schema.String,
+}) {}
 
 /**
  * Effectful entrypoint for the whole verification: certificate tables,
@@ -213,15 +209,18 @@ export const checkLawEffect = Effect.fn("Cert.checkLaw")(function* (
   sample: ReadonlyArray<Game.Move>,
 ) {
   yield* Effect.logDebug("checking computed certificate tables");
-  if (!certificateHolds()) return yield* Effect.fail(new CertError("chk_all table has a hole"));
+  if (!certificateHolds())
+    return yield* Effect.fail(new CertError({ detail: "chk_all table has a hole" }));
   yield* Effect.logDebug("checking start cell safety");
   if (!okpos(Game.START_X, Game.START_Y))
-    return yield* Effect.fail(new CertError("start cell is not safe"));
+    return yield* Effect.fail(new CertError({ detail: "start cell is not safe" }));
   yield* Effect.logDebug("checking reachable-state induction");
   if (!runFalse())
-    return yield* Effect.fail(new CertError("reachable set contains a won or unsafe state"));
+    return yield* Effect.fail(
+      new CertError({ detail: "reachable set contains a won or unsafe state" }),
+    );
   yield* Effect.logDebug("checking human law predicate on sample");
   if (!Laws.winningIsABug(sample))
-    return yield* Effect.fail(new CertError("law predicate failed on sample"));
+    return yield* Effect.fail(new CertError({ detail: "law predicate failed on sample" }));
   return true as const;
 });

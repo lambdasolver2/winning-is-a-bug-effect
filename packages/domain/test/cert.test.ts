@@ -1,9 +1,9 @@
 import { expect, it } from "@effect/vitest";
 import { Effect } from "effect";
 import * as fc from "fast-check";
-import * as Cert from "../src/Cert.js";
-import * as Game from "../src/Game.js";
-import * as Laws from "../src/Laws.js";
+import * as Cert from "../src/cert.js";
+import * as Game from "../src/game.js";
+import * as Laws from "../src/laws.js";
 
 it.live("computed certificate tables hold for every move", () =>
   Effect.sync(() => {

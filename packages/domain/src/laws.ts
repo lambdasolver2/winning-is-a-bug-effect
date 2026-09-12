@@ -11,7 +11,7 @@
  *
  * @since 0.1.0
  */
-import * as Game from "./Game.js";
+import * as Game from "./game.js";
 
 /** Law identifier, pinned so Cert and tests reference one wall. @category Laws @since 0.1.0 */
 export const WINNING_IS_A_BUG = "winning_is_a_bug" as const;

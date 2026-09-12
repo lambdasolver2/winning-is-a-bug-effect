@@ -83,6 +83,7 @@ The law: for any move sequence, `apply(init, moves)` is never won. `bun run test
 
 - oxlint + oxfmt (root configs), incl. `@foldkit/oxlint-plugin` rules
 - `bun run lint` / `bun run fmt` at root
+- husky pre-commit: `bun run check` + lint-staged (`oxlint --fix`, `oxfmt --write` on `*.ts`)
 
 ## Skills
 

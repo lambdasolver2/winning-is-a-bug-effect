@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import * as Game from "../src/Game.js";
+import * as Game from "../src/game.js";
 
 describe("Game geometry", () => {
   it("map dimensions match Bend", () => {

@@ -1,0 +1,3 @@
+#!/bin/sh
+bun run check
+bunx lint-staged --no-stash

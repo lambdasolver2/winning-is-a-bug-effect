@@ -42,8 +42,12 @@ export const ApplyRemoteMove = Command.define("ApplyRemoteMove", {
   execute: ({ api, board, move }) =>
     Effect.tryPromise(() => postBoard(api, board, move)).pipe(
       Effect.map((next) => new ReceivedRemoteBoard({ board: next, move })),
-      Effect.orElseSucceed(
-        () => new RemoteMoveFailed({ reason: "server unreachable — restart npm run server" }),
+      Effect.catch((cause) =>
+        Effect.succeed(
+          new RemoteMoveFailed({
+            reason: `server unreachable (${String(cause)}) — restart npm run server`,
+          }),
+        ),
       ),
     ),
 });
