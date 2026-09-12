@@ -68,7 +68,7 @@ The law: for any move sequence, `apply(init, moves)` is never won. `bun run test
 
 ### Naming
 
-- Files: `camelCase.ts` for modules; Schema export + type export pair
+- Files: single lowercase word only (`model.ts`, `view.ts`, `drag.ts'); dotted suffixes only for tests/config (`game.test.ts`, `vite.config.ts`, `alchemy.run.ts`); Schema export + type export pair
 - Error classes: `PascalCase` matching their `_tag`
 - Submodel messages wrapped as `Got<Child>Message`; child commands lifted with `Command.mapMessages`
 
