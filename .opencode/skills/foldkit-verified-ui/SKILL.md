@@ -89,10 +89,19 @@ prove by exhaustive cases instead — this suite runs in ~70ms:
 ./src/worker.ts`, `assets: ../web/dist`, `nodejs_compat`), domain optional
   via `GAME_DOMAIN` (`Option.isSome`, never `_tag` checks).
 - Deps: latest `alchemy` beta pinned exact alongside the Effect stack.
-- Never use wrangler. Auth is headless via `CLOUDFLARE_API_TOKEN` +
-  `CLOUDFLARE_ACCOUNT_ID` env vars (human-owned, never committed), then
-  `bun run deploy` (alchemy). `worker:dev` runs the worker locally with
-  assets, no login needed.
+- Never use wrangler. Auth is profile-based (`bunx alchemy profile ...` to
+  create/refresh; OAuth or API token per `/cloudflare/setup`, saved to the
+  local profile — no env vars required) or headless via
+  `CLOUDFLARE_API_TOKEN` + `CLOUDFLARE_ACCOUNT_ID`. Credentials are
+  human-owned, never committed. Then `bun run deploy` (alchemy).
+  `worker:dev` runs the worker locally with assets, no login needed.
+- Agent docs index: https://alchemy.run/llms.txt (Markdown twins per page,
+  API reference in `llms-full.txt`). Notable pages: Cloudflare setup
+  (`/cloudflare/setup`), Foldkit frontend (`/cloudflare/frontend/foldkit`),
+  Workers (`/cloudflare/compute/workers`), profiles (`/environments/profiles`),
+  CI (`/environments/ci`). A pure client app could use the
+  `Cloudflare.Website.Foldkit` resource; this app needs its API worker, so
+  Worker+assets is correct.
 - See `DEPLOY.md`.
 
 ## 5. oxlint-plugin (required)

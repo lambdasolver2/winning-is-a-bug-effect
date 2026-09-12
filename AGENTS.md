@@ -2,6 +2,9 @@
 
 Effect-TS + Foldkit port of VictorTaelin's `winning_is_a_bug` (Bend).
 Monorepo: Bun + Turbo, Effect-TS, Foldkit + foldcn, TypeScript.
+Bun + vitest are dev/test tools only. Production is the browser (static
+`apps/web/dist`, Pages-compatible) plus one Cloudflare Worker — no
+Node/bun runtime in prod.
 Upstream sources (`reference/winning_is_a_bug/`, `reference/dearly/`) are read-only references.
 
 ## Commands
@@ -14,8 +17,7 @@ Upstream sources (`reference/winning_is_a_bug/`, `reference/dearly/`) are read-o
 | Format       | `bun run fmt`                        | oxfmt                              |
 | Format check | `bun run fmt:check`                  | CI gate                            |
 | Test all     | `bun run test`                       | vitest per package, builds first   |
-| Game server  | `cd apps/server && bun run dev`      | `tsx --watch`, `PORT` respected    |
-| Worker dev   | `cd apps/server && bun run worker:dev` | alchemy local worker + assets      |
+| Game server  | `cd apps/server && bun run worker:dev` | alchemy local worker + assets (login) |
 | Deploy       | `cd apps/server && bun run deploy`   | alchemy → Cloudflare (see DEPLOY.md) |
 | Web dev      | `cd apps/web && bun run dev`         | vite + foldkit HMR, proxies /api   |
 | Single test  | `cd packages/domain && bun vitest run -t "name"` | Per-package vitest     |

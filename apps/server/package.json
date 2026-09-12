@@ -8,7 +8,7 @@
     "build": "tsc -p tsconfig.build.json",
     "check": "tsc -p tsconfig.json --noEmit",
     "test": "vitest run",
-    "dev": "tsx --watch src/Server.ts",
+    "dev": "alchemy dev",
     "worker:dev": "alchemy dev",
     "deploy": "alchemy deploy --yes",
     "destroy": "alchemy destroy"
@@ -24,7 +24,6 @@
     "@effect/platform-node": "4.0.0-rc.112",
     "@effect/vitest": "4.0.0-rc.112",
     "@types/node": "^22.0.0",
-    "tsx": "^4.19.0",
     "typescript": "^5.9.3",
     "vitest": "^4.0.0"
   }

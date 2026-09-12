@@ -64,9 +64,13 @@ suggest other versions. Docs: https://foldcn.elianiva.com/llms.txt.
 ```sh
 bun install
 bun run build && bun run check && bun run test
-cd apps/server && bun run dev      # game API on http://localhost:3000
-cd apps/web && bun run dev         # site on http://localhost:5173 (?api= proxied)
+cd apps/web && bun run dev         # site on http://localhost:5173, local rules, no server needed
+cd apps/server && bun run worker:dev  # API + assets as a local worker (login)
 ```
+
+Production is static files + one Worker (no Node/bun at runtime):
+`apps/web/dist` is plain static output (also Pages-compatible),
+`apps/server/src/worker.ts` serves the API. Deploy with alchemy (see below).
 
 Website modes: default plays the local Effect core; `?api=http://localhost:3000` plays the server. No credentials anywhere — including the local opencode2 service (`opencode2 api get /api/plugin` shows `opencode.effect-harness`).
 
