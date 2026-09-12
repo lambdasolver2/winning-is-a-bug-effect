@@ -2,7 +2,7 @@
   "name": "winning-is-a-bug",
   "private": true,
   "type": "module",
-  "description": "Winning Is A Bug — Effect-TS + Foldkit port with machine-checked law",
+  "description": "Winning Is A Bug \u2014 Effect-TS + Foldkit port with machine-checked law",
   "workspaces": [
     "apps/*",
     "packages/*"
@@ -15,7 +15,8 @@
     "fmt": "oxfmt .",
     "fmt:check": "oxfmt --check .",
     "dev": "turbo run dev",
-    "prepare": "husky"
+    "prepare": "husky",
+    "deploy": "bun run build && cd apps/server && bun run deploy"
   },
   "devDependencies": {
     "oxfmt": "^0.60.0",
