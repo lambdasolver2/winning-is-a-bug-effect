@@ -9,3 +9,5 @@ dist-web
 
 test-results
 .browsers
+
+.effect-harness
