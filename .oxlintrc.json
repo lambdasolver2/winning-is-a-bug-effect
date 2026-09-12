@@ -1,0 +1,86 @@
+{
+  "$schema": "./node_modules/oxlint/configuration_schema.json",
+  "plugins": [
+    "typescript"
+  ],
+  "jsPlugins": [
+    {
+      "name": "foldkit",
+      "specifier": "@foldkit/oxlint-plugin"
+    }
+  ],
+  "categories": {
+    "correctness": "off",
+    "suspicious": "warn",
+    "perf": "warn"
+  },
+  "rules": {
+    "no-unused-vars": [
+      "error",
+      {
+        "argsIgnorePattern": "^_",
+        "varsIgnorePattern": "^_",
+        "caughtErrorsIgnorePattern": "^_",
+        "destructuredArrayIgnorePattern": "^_"
+      }
+    ],
+    "typescript/no-explicit-any": "error",
+    "typescript/consistent-type-assertions": [
+      "error",
+      {
+        "assertionStyle": "never"
+      }
+    ],
+    "foldkit/no-noop-message": "error",
+    "foldkit/got-submodel-message-name": "error",
+    "foldkit/got-prefix-requires-submodel-payload": "error",
+    "foldkit/no-empty-object-tagged-call": "error",
+    "foldkit/no-empty-commands-array": "error",
+    "foldkit/no-empty-to-parent-out-message": "error",
+    "foldkit/prefer-callable-message-constructor": "error",
+    "foldkit/command-binding-matches-name": "error",
+    "foldkit/command-define-pascal-const": "error",
+    "foldkit/no-hand-rolled-command-struct": "error",
+    "foldkit/no-module-level-mutable-state": "error",
+    "foldkit/prefer-effect-module-names": "error",
+    "foldkit/no-spread-in-evo": "error",
+    "foldkit/no-empty-children-array": "error",
+    "foldkit/no-array-index-view-keys": "error",
+    "foldkit/keyed-required-for-mapped-rows": "error",
+    "foldkit/require-rel-for-external-link": "error",
+    "foldkit/no-raw-dom-event-attributes": "error",
+    "foldkit/no-impure-call-at-decision-time": "error",
+    "foldkit/no-disabling-dev-guardrails": "error",
+    "foldkit/wrap-child-output-in-got-message": "error",
+    "foldkit/got-wrapper-carries-only-routing": "error",
+    "foldkit/no-child-message-construction-in-root": "error",
+    "foldkit/selection-submodel-factory-at-module-scope": "error",
+    "foldkit/mount-factory-must-use-element": "error",
+    "foldkit/no-duplicate-onmount-per-element": "error",
+    "foldkit/lazy-view-stable-references": "error",
+    "foldkit/no-hardcoded-route-strings": "error",
+    "foldkit/no-nonportable-server-globals": "off"
+  },
+  "ignorePatterns": [
+    "**/node_modules/**",
+    "**/dist/**",
+    "**/dist-web/**",
+    "reference/**"
+  ],
+  "overrides": [
+    {
+      "files": [
+        "apps/web/src/components/ui/*.ts"
+      ],
+      "rules": {
+        "foldkit/prefer-effect-module-names": "off",
+        "foldkit/got-prefix-requires-submodel-payload": "off",
+        "foldkit/command-binding-matches-name": "off",
+        "foldkit/command-define-pascal-const": "off",
+        "eslint/no-underscore-dangle": "off",
+        "foldkit/no-empty-children-array": "off",
+        "foldkit/got-wrapper-carries-only-routing": "off"
+      }
+    }
+  ]
+}

@@ -1,0 +1,83 @@
+{
+  "version": "7",
+  "dialect": "sqlite",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "6",
+      "when": 1783840101840,
+      "tag": "0000_normal_puma",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "6",
+      "when": 1783840461126,
+      "tag": "0001_cloudy_omega_red",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "6",
+      "when": 1783841948270,
+      "tag": "0002_square_human_fly",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "6",
+      "when": 1783866725699,
+      "tag": "0003_groovy_karnak",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "6",
+      "when": 1783867242728,
+      "tag": "0004_public_molecule_man",
+      "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "6",
+      "when": 1783867242729,
+      "tag": "0005_media_names",
+      "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "6",
+      "when": 1783867242730,
+      "tag": "0006_spaces",
+      "breakpoints": true
+    },
+    {
+      "idx": 7,
+      "version": "6",
+      "when": 1783867242731,
+      "tag": "0007_invite_links",
+      "breakpoints": true
+    },
+    {
+      "idx": 8,
+      "version": "6",
+      "when": 1783867242732,
+      "tag": "0008_spaces_invite_cleanup",
+      "breakpoints": true
+    },
+    {
+      "idx": 9,
+      "version": "6",
+      "when": 1783867242733,
+      "tag": "0009_space_scoped_rows",
+      "breakpoints": true
+    },
+    {
+      "idx": 10,
+      "version": "6",
+      "when": 1783867242734,
+      "tag": "0010_owners",
+      "breakpoints": true
+    }
+  ]
+}

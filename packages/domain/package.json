@@ -1,0 +1,27 @@
+{
+  "name": "@wib/domain",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Game rules, human laws, and machine-checked certificates",
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.build.json",
+    "check": "tsc -p tsconfig.json --noEmit",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "effect": "4.0.0-rc.112"
+  },
+  "devDependencies": {
+    "@effect/vitest": "4.0.0-rc.112",
+    "fast-check": "^3.23.0",
+    "typescript": "^5.9.3",
+    "vitest": "^4.0.0"
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "name": "@wib/server",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Local Effect HTTP game server (no credentials, no Bend toolchain)",
+  "type": "module",
+  "scripts": {
+    "build": "tsc -p tsconfig.build.json",
+    "check": "tsc -p tsconfig.json --noEmit",
+    "test": "vitest run",
+    "dev": "tsx --watch src/Server.ts",
+    "worker:dev": "alchemy dev",
+    "deploy": "alchemy deploy --yes",
+    "destroy": "alchemy destroy"
+  },
+  "dependencies": {
+    "@wib/domain": "workspace:*",
+    "alchemy": "^2.0.0-beta.77",
+    "effect": "4.0.0-rc.112"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^5.0.0",
+    "@effect/platform-node": "4.0.0-rc.112",
+    "@effect/vitest": "4.0.0-rc.112",
+    "@types/node": "^22.0.0",
+    "tsx": "^4.19.0",
+    "typescript": "^5.9.3",
+    "vitest": "^4.0.0"
+  }
+}

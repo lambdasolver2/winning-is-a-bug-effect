@@ -1,0 +1,36 @@
+{
+  "extends": "./tsconfig.base.json",
+  "compilerOptions": {
+    "types": [],
+    "plugins": [
+      {
+        "name": "@effect/language-service"
+      }
+    ],
+    "paths": {
+      "@wib/domain": [
+        "./packages/domain/src/index.ts"
+      ],
+      "@/*": [
+        "./apps/web/src/*"
+      ]
+    },
+    "declaration": false,
+    "declarationMap": false,
+    "sourceMap": false
+  },
+  "include": [
+    "apps/*/src/**/*.ts",
+    "apps/*/test/**/*.ts",
+    "apps/*/vitest.config.ts",
+    "apps/*/playwright.config.ts",
+    "packages/*/src/**/*.ts",
+    "packages/*/test/**/*.ts"
+  ],
+  "exclude": [
+    "**/node_modules",
+    "**/dist",
+    "dearly",
+    "winning_is_a_bug"
+  ]
+}

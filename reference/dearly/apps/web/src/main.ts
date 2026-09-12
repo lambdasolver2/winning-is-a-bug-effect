@@ -1,0 +1,30 @@
+import { Runtime, Subscription, type Url } from "foldkit";
+import { overlay } from "@foldkit/devtools";
+import { VirtualList } from "@foldkit/ui";
+import type { UrlRequest } from "foldkit/navigation";
+import { AppMessage, ChangedRoute, GotMediaMessage, Navigated } from "./app/message";
+import { initialModel, Model } from "./app/model";
+import { init } from "./app/init";
+import { update } from "./app/update";
+import { GotEmojiListMessage } from "./media/message";
+import { parseRoute } from "./route";
+import { view } from "./view";
+
+export const application = Runtime.makeApplication({
+  Model,
+  init: (url: Url.Url) => init(initialModel(parseRoute(url))),
+  update,
+  view,
+  subscriptions: Subscription.lift({
+    emojiListEvents: VirtualList.subscriptions.containerEvents,
+  })<Model, AppMessage>({
+    toChildModel: (model) => model.media.emojiList,
+    toParentMessage: (message) => GotMediaMessage({ message: GotEmojiListMessage({ message }) }),
+  }),
+  container: document.getElementById("root"),
+  routing: {
+    onUrlRequest: (request: UrlRequest) => Navigated({ request }),
+    onUrlChange: (url: Url.Url) => ChangedRoute({ route: parseRoute(url) }),
+  },
+  devTools: { Message: AppMessage, overlay },
+});

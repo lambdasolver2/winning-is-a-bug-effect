@@ -1,0 +1,40 @@
+{
+  "name": "@dearly/web",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "check": "tsc --noEmit",
+    "test": "vitest run --environment happy-dom --exclude 'tests/e2e/**'",
+    "test:e2e": "playwright test"
+  },
+  "dependencies": {
+    "@dearly/domain": "workspace:*",
+    "@dearly/rpc": "workspace:*",
+    "@dnd-kit/dom": "^0.5.0",
+    "@effect/platform-browser": ">=4.0.0-beta.97",
+    "@foldkit/devtools": "^0.128.0",
+    "@foldkit/ui": "^0.128.0",
+    "@lexical/history": "^0.48.0",
+    "@lexical/rich-text": "^0.48.0",
+    "@tailwindcss/vite": "^4.3.1",
+    "date-fns": "^4.4.0",
+    "effect": ">=4.0.0-beta.97",
+    "emoji-js": "^3.9.0",
+    "foldkit": "^0.128.0",
+    "html-to-image": "^1.11.13",
+    "lexical": "^0.48.0",
+    "lucide": "^1.24.0",
+    "tailwindcss": "^4.3.1"
+  },
+  "devDependencies": {
+    "@foldkit/vite-plugin": "^0.10.0",
+    "@playwright/test": "^1.61.1",
+    "happy-dom": "^20.10.6",
+    "typescript": "7.0.2",
+    "vite": "8.1.4",
+    "vitest": "^4.1.10"
+  }
+}

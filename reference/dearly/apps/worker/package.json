@@ -1,0 +1,27 @@
+{
+  "name": "@dearly/worker",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "check": "tsc -p tsconfig.json --noEmit",
+    "test": "vitest run",
+    "dev": "alchemy dev",
+    "deploy": "alchemy deploy --yes --adopt --stage dev_ryuko",
+    "destroy": "alchemy destroy"
+  },
+  "dependencies": {
+    "@dearly/domain": "workspace:*",
+    "@dearly/rpc": "workspace:*",
+    "drizzle-orm": "^0.45.2",
+    "effect": ">=4.0.0-beta.97",
+    "jose": "^6.2.3"
+  },
+  "devDependencies": {
+    "@effect/platform-bun": ">=4.0.0-beta.101",
+    "@effect/platform-node": ">=4.0.0-beta.101",
+    "alchemy": "^2.0.0-beta.64",
+    "drizzle-kit": "^0.31.10"
+  }
+}
