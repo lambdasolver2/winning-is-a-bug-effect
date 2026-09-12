@@ -11,3 +11,5 @@ test-results
 .browsers
 
 .effect-harness
+
+.alchemy/

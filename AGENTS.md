@@ -13,7 +13,7 @@ Upstream sources (`reference/winning_is_a_bug/`, `reference/dearly/`) are read-o
 | ------------ | ------------------------------------ | ---------------------------------- |
 | Build all    | `bun run build`                      | Compiles domain → server → web     |
 | Type check   | `bun run check`                      | `tsc --noEmit` per package (turbo) |
-| Lint         | `bun run lint`                       | oxlint (root, incl. foldkit rules) |
+| Lint         | `bun run lint`                       | oxlint `apps packages` + foldkit rules |
 | Format       | `bun run fmt`                        | oxfmt                              |
 | Format check | `bun run fmt:check`                  | CI gate                            |
 | Test all     | `bun run test`                       | vitest per package, builds first   |
