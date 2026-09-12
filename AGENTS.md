@@ -18,7 +18,7 @@ Upstream sources (`reference/winning_is_a_bug/`, `reference/dearly/`) are read-o
 | Format check | `bun run fmt:check`                  | CI gate                            |
 | Test all     | `bun run test`                       | vitest per package, builds first   |
 | Game server  | `cd apps/server && bun run worker:dev` | alchemy local worker + assets (login) |
-| Deploy       | `cd apps/server && bun run deploy`   | alchemy → Cloudflare (see DEPLOY.md) |
+| Deploy       | `bun run deploy`                        | builds web, deploys Worker+site (see DEPLOY.md) |
 | Web dev      | `cd apps/web && bun run dev`         | vite + foldkit HMR, proxies /api   |
 | Single test  | `cd packages/domain && bun vitest run -t "name"` | Per-package vitest     |
 
