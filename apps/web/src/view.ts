@@ -11,6 +11,7 @@ import { fromEventFilterMap } from "foldkit/subscription";
 import { Game } from "@wib/domain";
 import { badge } from "./components/ui/badge.js";
 import { button } from "./components/ui/button.js";
+import { page, row } from "./components/ui/layout.js";
 import { Card } from "./components/ui/card.js";
 import {
   closeButton,
@@ -130,126 +131,139 @@ export const view = (model: Model, h: HtmlBuilder<AppMessage>): Document => {
   return {
     title: "Winning Is A Bug (Effect-TS)",
     body: h.div(
+      [h.OnMount({ name: "game-fx", f: () => fxStream })],
       [
-        h.OnMount({ name: "game-fx", f: () => fxStream }),
-        h.Class(
-          "flex min-h-screen flex-col items-center gap-5 bg-background px-3 py-6 font-mono text-foreground",
-        ),
-      ],
-      [
-        Card<AppMessage>(
-          { className: "w-full max-w-[640px] gap-4 border border-border py-4" },
+        page(
+          { gap: "lg", className: "bg-background font-mono text-foreground" },
           [
-            Card.header<AppMessage>(
-              { className: "px-4" },
+            Card<AppMessage>(
+              { className: "w-full max-w-[640px] gap-4 border border-border py-4" },
               [
-                Card.title<AppMessage>(
-                  {
-                    className:
-                      "text-[22px] sm:text-[28px] tracking-[4px] text-[#ffd25e] [text-shadow:0_0_18px_rgba(255,210,94,0.35)]",
-                  },
-                  ["WINNING IS A BUG"],
+                Card.header<AppMessage>(
+                  { className: "px-4" },
+                  [
+                    Card.title<AppMessage>(
+                      {
+                        className:
+                          "text-[22px] sm:text-[28px] tracking-[4px] text-[#ffd25e] [text-shadow:0_0_18px_rgba(255,210,94,0.35)]",
+                      },
+                      ["WINNING IS A BUG"],
+                      h,
+                    ),
+                    Card.description<AppMessage>(
+                      {},
+                      [
+                        "Grab the flag to win. The map wraps around. The room has only two walls. There is a catch: this game ships with a formal proof that winning is impossible. Try anyway.",
+                      ],
+                      h,
+                    ),
+                  ],
                   h,
                 ),
-                Card.description<AppMessage>(
+                Card.content<AppMessage>(
+                  { className: "px-4" },
+                  [
+                    Canvas.view(
+                      {
+                        width: BOARD_W,
+                        height: BOARD_H,
+                        shapes: scene(model),
+                        className:
+                          "mx-auto block h-auto w-full max-w-[528px] rounded-lg border border-border [box-shadow:0_0_40px_rgba(0,0,0,0.5)] [image-rendering:pixelated]",
+                      },
+                      h,
+                    ),
+                  ],
+                  h,
+                ),
+                Card.footer<AppMessage>(
                   {},
                   [
-                    "Grab the flag to win. The map wraps around. The room has only two walls. There is a catch: this game ships with a formal proof that winning is impossible. Try anyway.",
+                    row(
+                      { gap: "sm", className: "justify-center" },
+                      [
+                        badge({ variant: "outline" }, [`moves ${model.moves}`], h),
+                        badge({ variant: "outline" }, [`grabs ${model.grabs}`], h),
+                        badge(
+                          { variant: won ? "destructive" : "secondary" },
+                          [won ? "YOU WON?!" : "STILL NOT WON"],
+                          h,
+                        ),
+                        badge(
+                          { variant: "outline" },
+                          [
+                            model.api === null
+                              ? "local Effect rules"
+                              : `server rules: ${model.api}`,
+                          ],
+                          h,
+                        ),
+                      ],
+                      h,
+                    ),
                   ],
                   h,
                 ),
               ],
               h,
             ),
-            Card.content<AppMessage>(
-              { className: "px-4" },
+            separator({ className: "w-full max-w-[640px]" }, h),
+            row(
+              { gap: "sm", className: "justify-center text-xs text-muted-foreground" },
               [
-                Canvas.view(
-                  {
-                    width: BOARD_W,
-                    height: BOARD_H,
-                    shapes: scene(model),
-                    className:
-                      "mx-auto block h-auto w-full max-w-[528px] rounded-lg border border-border [box-shadow:0_0_40px_rgba(0,0,0,0.5)] [image-rendering:pixelated]",
-                  },
-                  h,
-                ),
+                Kbd({}, ["←", "↑", "↓", "→"], h),
+                " / ",
+                Kbd({}, ["W", "A", "S", "D"], h),
+                " to move · ",
+                Kbd({}, ["Space"], h),
+                " to grab",
               ],
               h,
             ),
-            Card.footer<AppMessage>(
-              { className: "flex-wrap gap-2" },
+            row(
+              { gap: "sm", className: "hidden justify-center [@media(hover:none)]:flex" },
               [
-                badge({ variant: "outline" }, [`moves ${model.moves}`], h),
-                badge({ variant: "outline" }, [`grabs ${model.grabs}`], h),
-                badge(
-                  { variant: won ? "destructive" : "secondary" },
-                  [won ? "YOU WON?!" : "STILL NOT WON"],
-                  h,
-                ),
-                badge(
-                  { variant: "outline" },
-                  [model.api === null ? "local Effect rules" : `server rules: ${model.api}`],
-                  h,
-                ),
+                padButton(h, "←", "Left"),
+                padButton(h, "↑", "Up"),
+                padButton(h, "↓", "Down"),
+                padButton(h, "→", "Right"),
+                padButton(h, "GRAB", "Grab"),
               ],
               h,
+            ),
+            h.submodel({
+              slotId: model.toasts.id,
+              model: model.toasts,
+              view: GameToast.view,
+              viewInputs: GameToast.styledViewInputs(
+                model.toasts,
+                {
+                  position: "TopCenter",
+                  toContent: (entry, inner) => [inner.p([], [entry.payload.title])],
+                },
+                h,
+              ),
+              toParentMessage: (message) => new GotToastMessage({ message }),
+            }),
+            proofDialog(h, model),
+            h.div(
+              [h.Class("text-center text-[11px] text-muted-foreground")],
+              [
+                "the rules run as Effect-TS · the law is winning_is_a_bug · local api: ?api=http://localhost:3000",
+                h.br([]),
+                "original Bend game by ",
+                h.a(
+                  [
+                    h.Href("https://github.com/VictorTaelin/winning_is_a_bug"),
+                    h.Target("_blank"),
+                    h.Rel("noopener noreferrer"),
+                  ],
+                  ["Victor Taelin"],
+                ),
+              ],
             ),
           ],
           h,
-        ),
-        separator({ className: "w-full max-w-[640px]" }, h),
-        h.div(
-          [h.Class("text-xs text-muted-foreground")],
-          [
-            Kbd({}, ["←", "↑", "↓", "→"], h),
-            " / ",
-            Kbd({}, ["W", "A", "S", "D"], h),
-            " to move · ",
-            Kbd({}, ["Space"], h),
-            " to grab",
-          ],
-        ),
-        h.div(
-          [h.Class("hidden gap-2 [@media(hover:none)]:flex")],
-          [
-            padButton(h, "←", "Left"),
-            padButton(h, "↑", "Up"),
-            padButton(h, "↓", "Down"),
-            padButton(h, "→", "Right"),
-            padButton(h, "GRAB", "Grab"),
-          ],
-        ),
-        h.submodel({
-          slotId: model.toasts.id,
-          model: model.toasts,
-          view: GameToast.view,
-          viewInputs: GameToast.styledViewInputs(
-            model.toasts,
-            {
-              position: "TopCenter",
-              toContent: (entry, inner) => [inner.p([], [entry.payload.title])],
-            },
-            h,
-          ),
-          toParentMessage: (message) => new GotToastMessage({ message }),
-        }),
-        proofDialog(h, model),
-        h.div(
-          [h.Class("text-center text-[11px] text-muted-foreground")],
-          [
-            "the rules run as Effect-TS · the law is winning_is_a_bug · local api: ?api=http://localhost:3000",
-            h.br([]),
-            "original Bend game by ",
-            h.a(
-              [
-                h.Href("https://github.com/VictorTaelin/winning_is_a_bug"),
-                h.Target("_blank"),
-                h.Rel("noopener noreferrer"),
-              ],
-              ["Victor Taelin"],
-            ),
-          ],
         ),
       ],
     ),
