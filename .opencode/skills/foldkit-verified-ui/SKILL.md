@@ -42,6 +42,7 @@ class="dark">` carries the foldcn dark theme.
 | 7   | Version skew (platform RC mismatch, stale vite-plugin, old vitest, CLI downgrades) | `bun install --frozen-lockfile` in CI; **boot smoke test** (or `layerTest`, no network needed) |
 | 8   | Test expectation wrong, code right (tick anti-spike cap)                           | Read the framework docs first (foldkit caps `deltaTime`; `now` advances ≤32ms/frame)           |
 | 9   | Deleted-file references, stale lockfiles                                           | `bun run build && check && test` from a clean tree in CI                                       |
+| 10  | Text clipped on small viewports (foldcn `badge` is `nowrap` + `overflow-hidden` by design) | Wrap rows (`flex-wrap` footer), responsive type (`text-[22px] sm:text-[28px]`); narrow-viewport screenshot review |
 
 Green tests prove nothing about strength. Review every new test with: does it
 fail if the implementation is weakened (fewer states, dropped animation,

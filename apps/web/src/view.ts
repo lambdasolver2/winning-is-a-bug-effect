@@ -146,7 +146,7 @@ export const view = (model: Model, h: HtmlBuilder<AppMessage>): Document => {
                 Card.title<AppMessage>(
                   {
                     className:
-                      "text-[28px] tracking-[4px] text-[#ffd25e] [text-shadow:0_0_18px_rgba(255,210,94,0.35)]",
+                      "text-[22px] sm:text-[28px] tracking-[4px] text-[#ffd25e] [text-shadow:0_0_18px_rgba(255,210,94,0.35)]",
                   },
                   ["WINNING IS A BUG"],
                   h,
@@ -178,7 +178,7 @@ export const view = (model: Model, h: HtmlBuilder<AppMessage>): Document => {
               h,
             ),
             Card.footer<AppMessage>(
-              { className: "gap-2" },
+              { className: "flex-wrap gap-2" },
               [
                 badge({ variant: "outline" }, [`moves ${model.moves}`], h),
                 badge({ variant: "outline" }, [`grabs ${model.grabs}`], h),
